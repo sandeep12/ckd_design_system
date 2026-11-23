@@ -57,6 +57,9 @@ abstract final class DsSizes {
   /// Small avatar.
   static const double avatarSm = 32;
 
+  /// Profile identity avatar.
+  static const double avatarLg = 72;
+
   /// Badge height.
   static const double badgeHeight = 24;
 

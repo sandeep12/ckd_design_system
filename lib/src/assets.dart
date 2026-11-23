@@ -31,6 +31,8 @@ abstract final class DsAssets {
   static const String icGraduationCap = 'assets/icons/ic_graduation_cap.svg';
   static const String icCalendarSm = 'assets/icons/ic_calendar_sm.svg';
   static const String icFileTextSm = 'assets/icons/ic_file_text_sm.svg';
+  static const String icSearch = 'assets/icons/ic_search.svg';
+  static const String icLock = 'assets/icons/ic_lock.svg';
   static const String icGraduationCapSm =
       'assets/icons/ic_graduation_cap_sm.svg';
 

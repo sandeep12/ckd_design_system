@@ -36,6 +36,15 @@ abstract final class DsTypography {
     color: DsColors.textPrimary,
   );
 
+  /// Large avatar initials — 24/36, Regular 400 (Avatar Size=72).
+  static const TextStyle avatarInitialsLg = TextStyle(
+    fontFamily: kDsFontFamily,
+    fontSize: 24,
+    height: 36 / 24,
+    fontWeight: FontWeight.w400,
+    color: DsColors.textPrimary,
+  );
+
   /// `DS/Body-sm` — 14/20, Regular 400.
   static const TextStyle bodySm = TextStyle(
     fontFamily: kDsFontFamily,

@@ -6,11 +6,15 @@ import '../tokens/sizes.dart';
 import '../tokens/spacing.dart';
 import '../tokens/typography.dart';
 
-/// Info badge with a leading dot (`Badge`, Tone=Info, Emphasis=Subtle).
+/// Tones supported by [DsBadge] (Emphasis=Subtle).
+enum DsBadgeTone { info, success }
+
+/// Subtle badge with a leading dot (`Badge`, Emphasis=Subtle).
 class DsBadge extends StatelessWidget {
-  const DsBadge({super.key, required this.label});
+  const DsBadge({super.key, required this.label, this.tone = DsBadgeTone.info});
 
   final String label;
+  final DsBadgeTone tone;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,9 @@ class DsBadge extends StatelessWidget {
       height: DsSizes.badgeHeight,
       padding: const EdgeInsets.symmetric(horizontal: DsSpacing.badgePadX),
       decoration: BoxDecoration(
-        color: DsColors.statusInfoBgSubtle,
+        color: tone == DsBadgeTone.success
+            ? DsColors.statusSuccessBgSubtle
+            : DsColors.statusInfoBgSubtle,
         borderRadius: BorderRadius.circular(DsRadii.pill),
       ),
       child: Row(
@@ -27,16 +33,21 @@ class DsBadge extends StatelessWidget {
           Container(
             width: 6,
             height: 6,
-            decoration: const BoxDecoration(
-              color: DsColors.statusInfoBgBold,
+            decoration: BoxDecoration(
+              color: tone == DsBadgeTone.success
+                  ? DsColors.statusSuccessText
+                  : DsColors.statusInfoBgBold,
               shape: BoxShape.circle,
             ),
           ),
           const SizedBox(width: DsSpacing.inlineXs),
           Text(
             label,
-            style:
-                DsTypography.overline.copyWith(color: DsColors.statusInfoText),
+            style: DsTypography.overline.copyWith(
+              color: tone == DsBadgeTone.success
+                  ? DsColors.statusSuccessText
+                  : DsColors.statusInfoText,
+            ),
           ),
         ],
       ),
@@ -60,15 +71,18 @@ class DsNotificationDot extends StatelessWidget {
 }
 
 /// Initials avatar (`Avatar`, Content=Initials), tinted sky.
+///
+/// [large] is the 72px profile identity avatar.
 class DsAvatar extends StatelessWidget {
-  const DsAvatar({super.key, required this.initials});
+  const DsAvatar({super.key, required this.initials, this.large = false});
 
   final String initials;
+  final bool large;
 
   @override
   Widget build(BuildContext context) => Container(
-        width: DsSizes.avatarSm,
-        height: DsSizes.avatarSm,
+        width: large ? DsSizes.avatarLg : DsSizes.avatarSm,
+        height: large ? DsSizes.avatarLg : DsSizes.avatarSm,
         alignment: Alignment.center,
         decoration: const BoxDecoration(
           color: DsColors.statusInfoBgSubtle,
@@ -76,7 +90,8 @@ class DsAvatar extends StatelessWidget {
         ),
         child: Text(
           initials,
-          style: DsTypography.overline.copyWith(color: DsColors.statusInfoText),
+          style: (large ? DsTypography.avatarInitialsLg : DsTypography.overline)
+              .copyWith(color: DsColors.statusInfoText),
         ),
       );
 }

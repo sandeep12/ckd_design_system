@@ -180,4 +180,13 @@ abstract final class DsColors {
 
   /// `color/selected/bg` — tab bar selected pill.
   static const Color selectedBg = Color(0xFFE6EAF6);
+
+  /// `color/selected/border` — selected filter tag outline.
+  static const Color selectedBorder = Color(0xFF002BA0);
+
+  /// `color/selected/text` — selected filter tag label.
+  static const Color selectedText = Color(0xFF001F72);
+
+  /// `color/status/success/bg-subtle` — success badge fill.
+  static const Color statusSuccessBgSubtle = Color(0xFFD8EBB0);
 }
