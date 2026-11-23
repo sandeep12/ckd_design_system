@@ -3,15 +3,28 @@ import 'package:material_ui/material_ui.dart';
 import '../tokens/colors.dart';
 import '../tokens/radii.dart';
 import '../tokens/sizes.dart';
+import '../tokens/spacing.dart';
 import '../tokens/typography.dart';
 
 /// Button size variants.
 enum DsButtonSize {
-  /// 48 high, full width — the primary-action contract.
+  /// 48 high, Label-lg — the mobile primary-action contract.
   lg,
+
+  /// 40 high, Label — web inline / card actions.
+  md,
 }
 
-/// Primary action button (`Button`, Tone=Primary).
+/// Button tones.
+enum DsButtonTone {
+  /// Cobalt fill.
+  primary,
+
+  /// White fill with a 1px border.
+  secondary,
+}
+
+/// Action button (`Button`).
 ///
 /// Supports disabled and loading states as drawn in Figma.
 class DsButton extends StatelessWidget {
@@ -21,7 +34,9 @@ class DsButton extends StatelessWidget {
     this.onPressed,
     this.loading = false,
     this.size = DsButtonSize.lg,
+    this.tone = DsButtonTone.primary,
     this.expand = true,
+    this.leadingIcon,
   });
 
   final String label;
@@ -31,29 +46,59 @@ class DsButton extends StatelessWidget {
 
   final bool loading;
   final DsButtonSize size;
+  final DsButtonTone tone;
 
   /// Whether the button stretches to the container width.
   final bool expand;
 
+  /// Optional leading glyph; tinted by the caller.
+  final Widget? leadingIcon;
+
   @override
   Widget build(BuildContext context) {
     final enabled = onPressed != null && !loading;
+    final isLg = size == DsButtonSize.lg;
+    final isPrimary = tone == DsButtonTone.primary;
 
-    final child = SizedBox(
-      height: DsSizes.buttonHeightLg,
+    final Color bg;
+    final Color fg;
+    if (!enabled && !loading) {
+      bg = DsColors.actionPrimaryBgDisabled;
+      fg = DsColors.actionPrimaryTextDisabled;
+    } else if (isPrimary) {
+      bg = DsColors.actionPrimaryBg;
+      fg = DsColors.actionPrimaryText;
+    } else {
+      bg = DsColors.actionSecondaryBg;
+      fg = DsColors.actionSecondaryText;
+    }
+
+    final radius = BorderRadius.circular(DsRadii.button);
+
+    return SizedBox(
+      height: isLg ? DsSizes.buttonHeightLg : DsSizes.buttonHeightMd,
       width: expand ? double.infinity : null,
       child: Material(
-        color: enabled || loading
-            ? DsColors.actionPrimaryBg
-            : DsColors.actionPrimaryBgDisabled,
-        borderRadius: BorderRadius.circular(DsRadii.button),
+        color: bg,
+        shape: RoundedRectangleBorder(
+          borderRadius: radius,
+          side: isPrimary
+              ? BorderSide.none
+              : const BorderSide(
+                  color: DsColors.actionSecondaryBorder,
+                  width: DsSizes.borderWidthDefault,
+                ),
+        ),
         child: InkWell(
           onTap: enabled ? onPressed : null,
-          borderRadius: BorderRadius.circular(DsRadii.button),
-          hoverColor: DsColors.actionPrimaryBgHover,
+          borderRadius: radius,
+          hoverColor: isPrimary
+              ? DsColors.actionPrimaryBgHover
+              : DsColors.actionSecondaryBgHover,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: DsSizes.buttonPadXLg),
+            padding: EdgeInsets.symmetric(
+              horizontal: isLg ? DsSizes.buttonPadXLg : DsSpacing.buttonPadXMd,
+            ),
             child: Row(
               mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -64,19 +109,21 @@ class DsButton extends StatelessWidget {
                     height: DsSizes.iconMd,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      valueColor: const AlwaysStoppedAnimation(
-                        DsColors.actionPrimaryText,
-                      ),
+                      valueColor: AlwaysStoppedAnimation(fg),
                     ),
                   ),
                   const SizedBox(width: DsSizes.buttonGap),
+                ] else if (leadingIcon != null) ...[
+                  leadingIcon!,
+                  const SizedBox(width: DsSizes.buttonGap),
                 ],
-                Text(
-                  label,
-                  style: DsTypography.labelLg.copyWith(
-                    color: enabled || loading
-                        ? DsColors.actionPrimaryText
-                        : DsColors.actionPrimaryTextDisabled,
+                Flexible(
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: (isLg ? DsTypography.labelLg : DsTypography.label)
+                        .copyWith(color: fg),
                   ),
                 ),
               ],
@@ -85,7 +132,5 @@ class DsButton extends StatelessWidget {
         ),
       ),
     );
-
-    return child;
   }
 }

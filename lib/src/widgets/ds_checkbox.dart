@@ -50,14 +50,12 @@ class DsCheckbox extends StatelessWidget {
               width: box,
               height: box,
               decoration: BoxDecoration(
-                color: value
-                    ? DsColors.actionPrimaryBg
-                    : DsColors.surfaceRaised,
+                color:
+                    value ? DsColors.actionPrimaryBg : DsColors.surfaceRaised,
                 borderRadius: BorderRadius.circular(DsRadii.controlSm),
                 border: Border.all(
-                  color: value
-                      ? DsColors.actionPrimaryBg
-                      : DsColors.borderStrong,
+                  color:
+                      value ? DsColors.actionPrimaryBg : DsColors.borderStrong,
                   width: DsSizes.borderWidthDefault,
                 ),
               ),

@@ -72,4 +72,42 @@ abstract final class DsTypography {
     letterSpacing: 0,
     color: DsColors.textPrimary,
   );
+
+  /// `DS/Display` — 48/56, ExtraBold 800, -0.4 tracking (stat values).
+  static const TextStyle display = TextStyle(
+    fontFamily: kDsFontFamily,
+    fontSize: 48,
+    height: 56 / 48,
+    fontWeight: FontWeight.w800,
+    letterSpacing: -0.4,
+    color: DsColors.textPrimary,
+  );
+
+  /// `DS/H1` — 36/44, ExtraBold 800. One per screen.
+  static const TextStyle h1 = TextStyle(
+    fontFamily: kDsFontFamily,
+    fontSize: 36,
+    height: 44 / 36,
+    fontWeight: FontWeight.w800,
+    color: DsColors.textPrimary,
+  );
+
+  /// `DS/H4` — 20/28, Bold 700.
+  static const TextStyle h4 = TextStyle(
+    fontFamily: kDsFontFamily,
+    fontSize: 20,
+    height: 28 / 20,
+    fontWeight: FontWeight.w700,
+    color: DsColors.textPrimary,
+  );
+
+  /// `DS/Overline` — 12/16, Bold 700, 0.4 tracking. Uppercase eyebrows.
+  static const TextStyle overline = TextStyle(
+    fontFamily: kDsFontFamily,
+    fontSize: 12,
+    height: 16 / 12,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0.4,
+    color: DsColors.textPrimary,
+  );
 }

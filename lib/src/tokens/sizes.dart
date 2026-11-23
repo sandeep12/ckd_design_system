@@ -32,4 +32,38 @@ abstract final class DsSizes {
 
   /// `border/width/default`
   static const double borderWidthDefault = 1;
+
+  /// `button/height-md` — web button height.
+  static const double buttonHeightMd = 40;
+
+  /// `size/topbar` — app shell top bar.
+  static const double topbar = 64;
+
+  /// `nav/width` — sidebar width.
+  static const double navWidth = 240;
+
+  /// NavItem row height.
+  static const double navItemHeight = 44;
+
+  /// `size/tabbar` — mobile bottom tab bar.
+  static const double tabbar = 64;
+
+  /// Mobile app bar height.
+  static const double appBar = 64;
+
+  /// Icon chip (stat tiles, notification rows).
+  static const double iconChip = 40;
+
+  /// Small avatar.
+  static const double avatarSm = 32;
+
+  /// Badge height.
+  static const double badgeHeight = 24;
+
+  /// Tab bar selected pill.
+  static const double tabPillWidth = 44;
+  static const double tabPillHeight = 26;
+
+  /// Notification dot.
+  static const double notificationDot = 8;
 }

@@ -23,7 +23,7 @@ enum DsFieldSize {
 class DsTextField extends StatelessWidget {
   const DsTextField({
     super.key,
-    required this.label,
+    this.label,
     this.controller,
     this.hintText,
     this.helperText,
@@ -41,7 +41,9 @@ class DsTextField extends StatelessWidget {
     this.onSubmitted,
   });
 
-  final String label;
+  /// Field label. Null renders a bare input (e.g. the dashboard exam-code
+  /// field); a bare input only adds a message line when there is one.
+  final String? label;
   final TextEditingController? controller;
   final String? hintText;
   final String? helperText;
@@ -78,8 +80,10 @@ class DsTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // FieldLabel
-        Text(label, style: DsTypography.label),
-        const SizedBox(height: DsSizes.inputGapLabel),
+        if (label != null) ...[
+          Text(label!, style: DsTypography.label),
+          const SizedBox(height: DsSizes.inputGapLabel),
+        ],
         // Input
         Container(
           height: height,
@@ -138,19 +142,22 @@ class DsTextField extends StatelessWidget {
             ],
           ),
         ),
-        // HelperText — reserve the line so layout matches Figma.
-        const SizedBox(height: DsSizes.inputGapLabel),
-        SizedBox(
-          height: 16,
-          child: message == null
-              ? null
-              : Text(
-                  message,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: DsTypography.caption.copyWith(color: messageColor),
-                ),
-        ),
+        // HelperText — labelled fields reserve the line so layout matches
+        // Figma; bare inputs only show it when there is a message.
+        if (label != null || message != null) ...[
+          const SizedBox(height: DsSizes.inputGapLabel),
+          SizedBox(
+            height: 16,
+            child: message == null
+                ? null
+                : Text(
+                    message,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: DsTypography.caption.copyWith(color: messageColor),
+                  ),
+          ),
+        ],
       ],
     );
   }
