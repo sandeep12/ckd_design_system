@@ -7,6 +7,9 @@ import '../assets.dart';
 enum DsAuthArt {
   /// Sign-in hero.
   graduationCap,
+
+  /// MFA / reset-link-sent hero.
+  mailSent,
 }
 
 /// Spot illustration for authentication moments, Skylight brand-arc
@@ -28,6 +31,7 @@ class DsAuthIllustration extends StatelessWidget {
     return SvgPicture.asset(
       switch (art) {
         DsAuthArt.graduationCap => DsAssets.artGraduationCap,
+        DsAuthArt.mailSent => DsAssets.artMailSent,
       },
       package: DsAssets.package,
       width: width,

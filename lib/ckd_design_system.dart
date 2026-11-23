@@ -16,5 +16,6 @@ export 'src/widgets/ds_button.dart';
 export 'src/widgets/ds_checkbox.dart';
 export 'src/widgets/ds_link.dart';
 export 'src/widgets/ds_logo_chip.dart';
+export 'src/widgets/ds_otp_input.dart';
 export 'src/widgets/ds_status_banner.dart';
 export 'src/widgets/ds_text_field.dart';
